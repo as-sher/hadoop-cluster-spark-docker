@@ -23,6 +23,6 @@ echo ""
 echo -e "\nbuild docker hadoop image\n"
 
 # rebuild kiwenlau/hadoop image
-sudo docker build -t kiwenlau/hadoop:1.0 .
+sudo docker build -t kgiann78/ms-thesis-hadoop-spark:1.0 .
 
 echo ""
