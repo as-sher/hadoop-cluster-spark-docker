@@ -1,12 +1,13 @@
+# Hadoop and Spark cluster in Docker
 This docker hadoop cluster is based on kiwenlau/hadoop-cluster-docker but it also contains a spark distribution. The main idea is to run spark applications by using the yarn as master
- 
+
 Information on the original hadoop-cluster-docker can be found here:
 
 - Blog: [Run Hadoop Cluster in Docker Update](http://kiwenlau.com/2016/06/26/hadoop-cluster-docker-update-english/)
 
 ![alt tag](https://raw.githubusercontent.com/kiwenlau/hadoop-cluster-docker/master/hadoop-cluster-docker.png)
 
-**Configuring yarn and mapreduce 2 in hdp 2.0**
+## Configuring yarn and mapreduce 2 in hdp 2.0
 
 Because when runnning a spark-submit there were cases that run into memory issues, i.e. error messages like 'Container [pid=28920,containerID=container_XXX] 
 is running beyond virtual memory limits. Current usage: 1.2 GB of 1 GB physical memory used; 2.2 GB of 2.1 GB virtual memory used. Killing container.',
@@ -43,7 +44,8 @@ In yarn-site.xml add the lines:
 ```
 YARN will allocate Containers with RAM amounts greater than the yarn.scheduler.minimum-allocation-mb.
 
-**CONFIGURING MAPREDUCE 2**
+### CONFIGURING MAPREDUCE 2
+
 MapReduce 2 runs on top of YARN and utilizes YARN Containers to schedule and execute its map and reduce tasks.
 When configuring MapReduce 2 resource utilization on YARN, there are three aspects to consider:
 * Physical RAM limit for each Map And Reduce task
@@ -108,14 +110,14 @@ The entire cluster is available for dynamic resource allocation of Maps and Redu
 In our example cluster, with the above configurations, YARN will be able to allocate on each node up to
 10 mappers (40/4) or 5 reducers (40/8) or a permutation within that.
 
-**5 Nodes Hadoop Cluster**
+## 5 Nodes Hadoop Cluster
 
-*1. clone github repository*
+### 1. clone github repository
 
 ```
 git clone https://github.com/kgiann78/hadoop-cluster-docker
 ```
-*2. Build docker file*
+### 2. Build docker file
 
 ```
 sudo docker build -t kgiann78/msc-thesis-hadoop-spark:1.0 .
@@ -123,13 +125,13 @@ sudo docker build -t kgiann78/msc-thesis-hadoop-spark:1.0 .
 
 In case built the image with a different name, don't forget to change the name also at the start-container.sh file.
 
-*3. create hadoop network*
+### 3. create hadoop network
 
 ```
 sudo docker network create --driver=bridge hadoop
 ```
 
-*4. start container*
+### 4. start container
 
 ```
 cd hadoop-cluster-docker
@@ -149,13 +151,13 @@ root@hadoop-master:~#
 - start 5 containers with 1 master and 4 slaves
 - you will get into the /root directory of hadoop-master container
 
-*5. start hadoop*
+### 5. start hadoop
 
 ```
 ./start-hadoop.sh
 ```
 
-*6. run wordcount*
+### 6. run wordcount
 
 In order to test the hadoop installation we run a simple mapreduce test
 
@@ -177,7 +179,7 @@ Docker    1
 Hadoop    1
 Hello    2
 ```
-*7. test spark installation*
+### 7. test spark installation
 
 In order to test the spark installation we run a spark example with spark-submit*
 
@@ -190,13 +192,13 @@ spark-submit \
   100
 ```
 
-###Arbitrary size Hadoop cluster
+## Arbitrary size Hadoop cluster
 
-#####1. pull docker images and clone github repository
+### 1. pull docker images and clone github repository
 
 do 1~3 like section A
 
-#####2. rebuild docker image
+### 2. rebuild docker image
 
 ```
 sudo ./resize-cluster.sh 5
@@ -212,7 +214,7 @@ sudo ./start-container.sh 5
 ```
 - use the same parameter as the step 2
 
-#####4. run hadoop cluster 
+### 4. run hadoop cluster 
 
 do 5~6 like section A
 
