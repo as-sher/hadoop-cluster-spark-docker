@@ -99,9 +99,9 @@ In yarn-site.xml add the lines:
 ```
 
 Thus, with the above settings on our example cluster, each Map task will get the following memory allocations with the following:
-Total physical RAM allocated = 4 GB
-JVM heap space upper limit within the Map task Container = 3 GB
-Virtual memory upper limit = 4*2.1 = 8.2 GB
+* Total physical RAM allocated = 4 GB
+* JVM heap space upper limit within the Map task Container = 3 GB
+* Virtual memory upper limit = 4*2.1 = 8.2 GB
 
 With YARN and MapReduce 2, there are no longer pre-configured static slots for Map and Reduce tasks.
 The entire cluster is available for dynamic resource allocation of Maps and Reduces as needed by the job.
