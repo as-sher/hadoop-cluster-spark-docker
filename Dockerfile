@@ -5,7 +5,7 @@ MAINTAINER kgiann78 <kgiann78@gmail.com>
 WORKDIR /root
 
 # install openssh-server, openjdk and wget
-RUN apt-get update && apt-get install -y openssh-server openjdk-8-jdk wget less pico
+RUN apt-get update && apt-get install -y openssh-server openjdk-8-jdk wget less nano
 
 # install hadoop 2.7.3
 RUN wget http://apache.cc.uoc.gr/hadoop/common/hadoop-2.7.3/hadoop-2.7.3.tar.gz && \
