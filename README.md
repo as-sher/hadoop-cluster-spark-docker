@@ -207,7 +207,7 @@ sudo ./resize-cluster.sh 5
 - this script just rebuild hadoop image with different **slaves** file, which pecifies the name of all slave nodes
 
 
-#####3. start container
+### 3. start container
 
 ```
 sudo ./start-container.sh 5
