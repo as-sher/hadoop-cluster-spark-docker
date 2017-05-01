@@ -108,25 +108,28 @@ The entire cluster is available for dynamic resource allocation of Maps and Redu
 In our example cluster, with the above configurations, YARN will be able to allocate on each node up to
 10 mappers (40/4) or 5 reducers (40/8) or a permutation within that.
 
-## 5 Nodes Hadoop Cluster
+**5 Nodes Hadoop Cluster**
 
-#####1. clone github repository
+*1. clone github repository*
 
 ```
 git clone https://github.com/kgiann78/hadoop-cluster-docker
 ```
-#####2. Build docker file
+*2. Build docker file*
 
 ```
 sudo docker build -t kgiann78/msc-thesis-hadoop-spark:1.0 .
 ```
-#####3. create hadoop network
+
+In case built the image with a different name, don't forget to change the name also at the start-container.sh file.
+
+*3. create hadoop network*
 
 ```
 sudo docker network create --driver=bridge hadoop
 ```
 
-#####4. start container
+*4. start container*
 
 ```
 cd hadoop-cluster-docker
@@ -139,18 +142,22 @@ sudo ./start-container.sh
 start hadoop-master container...
 start hadoop-slave1 container...
 start hadoop-slave2 container...
+start hadoop-slave3 container...
+start hadoop-slave4 container...
 root@hadoop-master:~# 
 ```
-- start 3 containers with 1 master and 2 slaves
+- start 5 containers with 1 master and 4 slaves
 - you will get into the /root directory of hadoop-master container
 
-#####5. start hadoop
+*5. start hadoop*
 
 ```
 ./start-hadoop.sh
 ```
 
-#####6. run wordcount
+*6. run wordcount*
+
+In order to test the hadoop installation we run a simple mapreduce test
 
 ```
 ./run-wordcount.sh
@@ -169,6 +176,18 @@ wordcount output:
 Docker    1
 Hadoop    1
 Hello    2
+```
+*7. test spark installation*
+
+In order to test the spark installation we run a spark example with spark-submit*
+
+```
+spark-submit \
+  --class org.apache.spark.examples.SparkPi \
+  --master yarn \
+  --deploy-mode client \
+  /usr/local/spark/examples/jars/spark-examples_2.11-2.1.0.jar  \
+  100
 ```
 
 ###Arbitrary size Hadoop cluster
