@@ -5,10 +5,10 @@ MAINTAINER kgiann78 <kgiann78@gmail.com>
 WORKDIR /root
 
 # install openssh-server, openjdk and wget
-RUN apt-get update && apt-get install -y openssh-server openjdk-8-jdk wget less nano git maven
+RUN apt-get update && apt-get install -y openssh-server openjdk-8-jdk wget less nano git maven scala
 
 # install hadoop 2.7.3
-RUN wget http://apache.cc.uoc.gr/hadoop/common/hadoop-2.7.3/hadoop-2.7.3.tar.gz && \
+RUN wget http://apache.tsl.gr/hadoop/common/hadoop-2.7.3/hadoop-2.7.3.tar.gz && \
     tar -xzvf hadoop-2.7.3.tar.gz && \
     mv hadoop-2.7.3 /usr/local/hadoop && \
     rm hadoop-2.7.3.tar.gz
@@ -52,13 +52,21 @@ RUN mv /tmp/ssh_config ~/.ssh/config && \
     mv /tmp/slaves $HADOOP_HOME/etc/hadoop/slaves && \
     mv /tmp/start-hadoop.sh ~/start-hadoop.sh && \
     mv /tmp/run-wordcount.sh ~/run-wordcount.sh && \
-    mv /tmp/stop-hadoop.sh ~/stop-hadoop.sh
+    mv /tmp/stop-hadoop.sh ~/stop-hadoop.sh && \
+    mv /tmp/spark-env.sh $SPARK_HOME/conf/spark-env.sh
 
 RUN chmod +x ~/start-hadoop.sh && \
     chmod +x ~/run-wordcount.sh && \
     chmod +x ~/stop-hadoop.sh && \
     chmod +x $HADOOP_HOME/sbin/start-dfs.sh && \
     chmod +x $HADOOP_HOME/sbin/start-yarn.sh 
+
+# clone ThesisHiveSpatial
+RUN git clone https://github.com/kgiann78/ThesisHiveSpatial.git
+
+# build ThesisHiveSpatial
+RUN cd ThesisHiveSpatial && \
+    mvn clean install
 
 # format namenode
 RUN /usr/local/hadoop/bin/hdfs namenode -format

@@ -11,6 +11,8 @@ sudo docker run -itd \
                 --net=hadoop \
                 -p 50070:50070 \
                 -p 8088:8088 \
+		-p 10000:10000 \
+		-p 4040:4040 \
                 --name hadoop-master \
                 --hostname hadoop-master \
                 kgiann78/ms-thesis-hadoop-spark:1.0 &> /dev/null
