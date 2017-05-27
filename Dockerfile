@@ -62,10 +62,11 @@ RUN chmod +x ~/start-hadoop.sh && \
     chmod +x $HADOOP_HOME/sbin/start-yarn.sh 
 
 # clone ThesisHiveSpatial
-RUN git clone https://github.com/kgiann78/ThesisHiveSpatial.git
+RUN git clone https://github.com/kgiann78/thesis-spatial.git
 
-# build ThesisHiveSpatial
-RUN cd ThesisHiveSpatial && \
+# build thesis-spatial
+RUN cd thesis-spatial && \
+    git checkout develop && \
     mvn clean install
 
 # format namenode
