@@ -121,7 +121,7 @@ git clone https://github.com/kgiann78/hadoop-cluster-docker
 ### 2. Build docker file
 
 ```
-sudo docker build -t kgiann78/msc-thesis-hadoop-spark:1.0 .
+sudo docker build -t kgiann78/msc-thesis-hadoop-spark:XX .
 ```
 
 In case built the image with a different name, don't forget to change the name also at the start-container.sh file.
@@ -145,11 +145,9 @@ sudo ./start-container.sh
 start hadoop-master container...
 start hadoop-slave1 container...
 start hadoop-slave2 container...
-start hadoop-slave3 container...
-start hadoop-slave4 container...
 root@hadoop-master:~# 
 ```
-- start 5 containers with 1 master and 4 slaves
+- start 5 containers with 1 master and 2 slaves
 - you will get into the /root directory of hadoop-master container
 
 ### 5. start hadoop
