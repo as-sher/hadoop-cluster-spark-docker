@@ -1,7 +1,7 @@
 #!/bin/bash
 
-# the default node number is 4
-N=${1:-5}
+# the default node number is 3
+N=${1:-3}
 
 
 # start hadoop master container
@@ -15,7 +15,7 @@ sudo docker run -itd \
 		-p 4040:4040 \
                 --name hadoop-master \
                 --hostname hadoop-master \
-                kgiann78/ms-thesis-hadoop-spark:1.0 &> /dev/null
+                kgiann78/ms-thesis-hadoop-spark:1.1 &> /dev/null
 
 
 # start hadoop slave container
@@ -28,7 +28,7 @@ do
 	                --net=hadoop \
 	                --name hadoop-slave$i \
 	                --hostname hadoop-slave$i \
-	                kgiann78/ms-thesis-hadoop-spark:1.0 &> /dev/null
+	                kgiann78/ms-thesis-hadoop-spark:1.1 &> /dev/null
 	i=$(( $i + 1 ))
 done 
 

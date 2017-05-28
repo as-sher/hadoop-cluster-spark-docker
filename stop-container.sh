@@ -1,7 +1,7 @@
 #!/bin/bash
 
-# the default node number is 4
-N=${1:-5}
+# the default node number is 3
+N=${1:-3}
 
 # stop hadoop slave containers
 i=1
