@@ -1,6 +1,7 @@
 # Hadoop and Spark cluster in Docker
-This docker hadoop cluster is based on [kiwenlau/hadoop-cluster-docker](http://github.com/kiwenlau/hadoop-cluster-docker) but it also contains a spark distribution. 
-The main idea is to run spark applications by using the yarn as master!
+This docker hadoop cluster is based on [kiwenlau/hadoop-cluster-docker](http://github.com/kiwenlau/hadoop-cluster-docker) and it is the main infrastructure for my thesis.
+
+The difference from [kiwenlau/hadoop-cluster-docker](http://github.com/kiwenlau/hadoop-cluster-docker) is that this cluster contains also a spark distribution and the project [thesis-spatial](https://github.com/kgiann78/thesis-spatial). The main idea is to run spark applications by using the yarn as master.
 
 Information on the original hadoop-cluster-docker can be found here:
 
