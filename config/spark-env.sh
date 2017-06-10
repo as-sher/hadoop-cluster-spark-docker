@@ -41,6 +41,8 @@
 # - SPARK_EXECUTOR_MEMORY, Memory per Executor (e.g. 1000M, 2G) (Default: 1G)
 # - SPARK_DRIVER_MEMORY, Memory for Driver (e.g. 1000M, 2G) (Default: 1G)
 export SPARK_DIST_CLASSPATH=$(hadoop --config $HADOOP_CONF_DIR classpath)
+export SPARK_DRIVER_MEMORY=2G
+export SPARK_EXECUTOR_MEMORY=1G
 
 # Options for the daemons used in the standalone deploy mode
 # - SPARK_MASTER_HOST, to bind the master to a different IP address or hostname
