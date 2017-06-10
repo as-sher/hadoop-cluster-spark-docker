@@ -1,6 +1,7 @@
 # Hadoop and Spark cluster in Docker
-This docker hadoop cluster is based on [kiwenlau/hadoop-cluster-docker](http://github.com/kiwenlau/hadoop-cluster-docker) but it also contains a spark distribution. 
-The main idea is to run spark applications by using the yarn as master!
+This docker hadoop cluster is based on [kiwenlau/hadoop-cluster-docker](http://github.com/kiwenlau/hadoop-cluster-docker) and it is the main infrastructure for my thesis.
+
+The difference from [kiwenlau/hadoop-cluster-docker](http://github.com/kiwenlau/hadoop-cluster-docker) is that this cluster contains also a spark distribution and the project [thesis-spatial](https://github.com/kgiann78/thesis-spatial). The main idea is to run spark applications by using the yarn as master.
 
 Information on the original hadoop-cluster-docker can be found here:
 
@@ -121,7 +122,7 @@ git clone https://github.com/kgiann78/hadoop-cluster-docker
 ### 2. Build docker file
 
 ```
-sudo docker build -t kgiann78/msc-thesis-hadoop-spark:1.0 .
+sudo docker build -t kgiann78/msc-thesis-hadoop-spark:XX .
 ```
 
 In case built the image with a different name, don't forget to change the name also at the start-container.sh file.
@@ -145,11 +146,9 @@ sudo ./start-container.sh
 start hadoop-master container...
 start hadoop-slave1 container...
 start hadoop-slave2 container...
-start hadoop-slave3 container...
-start hadoop-slave4 container...
 root@hadoop-master:~# 
 ```
-- start 5 containers with 1 master and 4 slaves
+- start 5 containers with 1 master and 2 slaves
 - you will get into the /root directory of hadoop-master container
 
 ### 5. start hadoop
