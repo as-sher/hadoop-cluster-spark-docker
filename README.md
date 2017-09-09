@@ -112,7 +112,7 @@ The entire cluster is available for dynamic resource allocation of Maps and Redu
 In our example cluster, with the above configurations, YARN will be able to allocate on each node up to
 10 mappers (40/4) or 5 reducers (40/8) or a permutation within that.
 
-## 5 Nodes Hadoop Cluster
+## 3 Nodes Hadoop Cluster
 
 ### 1. clone github repository
 
