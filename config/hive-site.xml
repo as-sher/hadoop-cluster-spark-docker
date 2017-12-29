@@ -1742,17 +1742,23 @@
   </property>
   <property>
     <name>hive.merge.size.per.task</name>
-    <value>256000000</value>
+    <value>134217728</value>
+    <!--<value>256000000</value>-->
     <description>Size of merged files at the end of the job</description>
   </property>
   <property>
     <name>hive.merge.smallfiles.avgsize</name>
-    <value>16000000</value>
+    <value>44739242</value>
+    <!--<value>16000000</value>-->
     <description>
       When the average output file size of a job is less than this number, Hive will start an additional 
       map-reduce job to merge the output files into bigger files. This is only done for map-only jobs 
       if hive.merge.mapfiles is true, and for map-reduce jobs if hive.merge.mapredfiles is true.
     </description>
+  </property>
+  <property>
+    <name>mapreduce.job.reduce.slowstart.completedmaps</name>
+    <value>0.8</value>
   </property>
   <property>
     <name>hive.merge.rcfile.block.level</name>
@@ -2057,7 +2063,7 @@
   </property>
   <property>
     <name>hive.auto.convert.join.noconditionaltask.size</name>
-    <value>10000000</value>
+    <value>405306368</value>
     <description>
       If hive.auto.convert.join.noconditionaltask is off, this parameter does not take affect. 
       However, if it is on, and the sum of size for n-1 of the tables/partitions for a n-way join is smaller than this size, 
@@ -2691,7 +2697,7 @@
   </property>
   <property>
     <name>hive.stats.fetch.column.stats</name>
-    <value>false</value>
+    <value>true</value>
     <description>
       Annotation of operator tree with statistics information requires column statistics.
       Column statistics are fetched from metastore. Fetching column statistics for each needed column
