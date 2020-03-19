@@ -8,30 +8,26 @@ WORKDIR /root
 RUN apt-get update && apt-get install -y openssh-server openjdk-8-jdk wget less nano git maven scala
 
 # install hadoop 2.7.3
-RUN wget http://apache.tsl.gr/hadoop/common/hadoop-2.7.3/hadoop-2.7.3.tar.gz && \
+RUN wget http://archive.apache.org/dist/hadoop/core/hadoop-2.7.3/hadoop-2.7.3.tar.gz && \
     tar -xzvf hadoop-2.7.3.tar.gz && \
     mv hadoop-2.7.3 /usr/local/hadoop && \
     rm hadoop-2.7.3.tar.gz
 
 # install spark 2.1.0 with hadoop 2.7 prebuilt
-RUN wget http://d3kbcqa49mib13.cloudfront.net/spark-2.1.0-bin-hadoop2.7.tgz && \
-    tar -xzvf spark-2.1.0-bin-hadoop2.7.tgz && \
-    mv spark-2.1.0-bin-hadoop2.7 /usr/local/spark && \
-    rm spark-2.1.0-bin-hadoop2.7.tgz
+RUN wget https://archive.apache.org/dist/spark/spark-2.3.0/spark-2.3.0-bin-hadoop2.7.tgz && \
+    tar -xzvf spark-2.3.0-bin-hadoop2.7.tgz && \
+    mv spark-2.3.0-bin-hadoop2.7 /usr/local/spark && \
+    rm spark-2.3.0-bin-hadoop2.7.tgz
 
 # install hive 2.1.0
-RUN wget http://www-us.apache.org/dist/hive/hive-2.1.1/apache-hive-2.1.1-bin.tar.gz && \
+RUN wget https://archive.apache.org/dist/hive/hive-2.1.1/apache-hive-2.1.1-bin.tar.gz && \
     tar -xzvf apache-hive-2.1.1-bin.tar.gz && \
     mv apache-hive-2.1.1-bin /usr/local/hive && \
     rm apache-hive-2.1.1-bin.tar.gz
 
 RUN apt-get update && apt-get install -y build-essential
 
-#intall tez 0.8.5
-RUN mkdir /usr/local/tez
-COPY apache-tez-0.8.5-src/tez-dist/target/tez-0.8.5.tar.gz /tmp/tez-0.8.5.tar.gz
-COPY apache-tez-0.8.5-src/tez-dist/target/tez-0.8.5-minimal.tar.gz /tmp/tez-0.8.5-minimal.tar.gz
-RUN tar -xvzf /tmp/tez-0.8.5-minimal.tar.gz -C /usr/local/tez
+
 
 # set environment variable
 ENV JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64 
@@ -53,9 +49,34 @@ ENV PATH=$PATH:$HADOOP_HOME/bin:$HADOOP_HOME/sbin:$HIVE_HOME/bin
 ENV PATH=$PATH:$SPARK_HOME/bin
 ENV TEZ_CONF_DIR=$HIVE_CONF_DIR
 ENV TEZ_JARS=/usr/local/tez
+ENV LIVY_DIR="/usr/local/lib/livy"
+ENV LIVY_BIN="${LIVY_DIR}/bin"
+ENV LIVY_CONF="${LIVY_DIR}/conf"
+
+ENV PKG_PATH="incubator/livy/${LIVY_VERSION}-incubating/${LIVY_PKG_NAME}.zip"
+
 #ENV HADOOP_CLASSPATH=${TEZ_CONF_DIR}:${TEZ_JARS}/*:${TEZ_JARS}/lib/*
 ENV HADOOP_CLASSPATH=${TEZ_CONF_DIR}:${TEZ_JARS}/*:${TEZ_JARS}/lib/*:${HADOOP_CLASSPATH}:${JAVA_JDBC_LIBS}:${MAPREDUCE_LIBS}
 ENV CLASSPATH=$CLASSPATH:${TEZ_CONF_DIR}:${TEZ_JARS}/*:${TEZ_JARS}/lib/*
+
+RUN apt-get install -y unzip
+
+# install livy
+RUN wget http://apachemirror.wuchna.com/incubator/livy/0.6.0-incubating/apache-livy-0.6.0-incubating-bin.zip && \
+    unzip apache-livy-0.6.0-incubating-bin.zip && \
+    mv apache-livy-0.6.0-incubating-bin /usr/local/lib/livy && \
+    rm apache-livy-0.6.0-incubating-bin.zip
+
+RUN mkdir /var/log/livy
+
+RUN echo "LIVY_LOG_DIR=/var/log/livy" >> /usr/local/lib/livy/conf/livy-env.sh
+
+RUN apt-get update 
+RUN apt-get install -y vim
+
+RUN echo "livy.spark.master = yarn" >> /usr/local/lib/livy/conf/livy.conf
+
+RUN echo "livy.spark.deploy-mode = cluster" >> /usr/local/lib/livy/conf/livy.conf
 
 # ssh without key
 RUN ssh-keygen -t rsa -f ~/.ssh/id_rsa -P '' && \
@@ -115,4 +136,7 @@ RUN apt-get update && apt-get install -y libpostgresql-jdbc-java && \
 	ln -s /usr/share/java/postgresql-jdbc4.jar
 
 CMD [ "sh", "-c", "service ssh start; bash;"]
+CMD bash /usr/local/lib/livy/bin/livy-server start
+CMD bash /usr/local/hadoop/sbin/start-all.sh 
+
 

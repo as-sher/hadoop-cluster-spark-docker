@@ -3,6 +3,6 @@
 echo ""
 
 echo -e "\nbuild docker hadoop image\n"
-sudo docker build -t kgiann78/ms-thesis-hadoop-spark:1.1 .
+sudo docker build -t hadoop-spark-livy:0.3 .
 
 echo ""
